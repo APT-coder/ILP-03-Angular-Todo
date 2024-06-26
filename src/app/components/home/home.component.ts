@@ -5,6 +5,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { Todo } from '../../models/Todo.interface';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +16,13 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent {
 
-  todos: any[] = [];
+  todos: Todo[] = [];
   displayedColumns: string[] = ['select', 'id', 'todo', 'edit', 'delete'];
-  dataSource: MatTableDataSource<any>;
-  selection = new SelectionModel<any>(true, []);
+  dataSource: MatTableDataSource<Todo>;
+  selection = new SelectionModel<Todo>(true, []);
 
   constructor(private http: HttpClient) {
-    this.dataSource = new MatTableDataSource<any>(this.todos);
+    this.dataSource = new MatTableDataSource<Todo>(this.todos);
   }
 
   ngOnInit(): void {
@@ -37,7 +38,6 @@ export class HomeComponent {
       });
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
